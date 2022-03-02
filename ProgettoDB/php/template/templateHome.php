@@ -70,6 +70,7 @@
         <li style="float:right"><a class="active" href="../html/paginaIniziale.html"><i class="fa fa-home"></i></a></li>
         <li><a href="../html/Login.html">Login Utente</a></li>
         <li><a href="../html/register.html">Registrazione</a></li>
+        <li> <p style="color: white"><?php echo $templateParams["conferenze"][0]["num"]?></p></li>
       </ul>
 
 <div class="parallax">
@@ -77,7 +78,7 @@
 </div>
 
 <div id="grad1"style="text-align:center;">
-      <p><?php echo $numConf?></p>
+     
 </div>
 
 <div class="parallax2"></div>
