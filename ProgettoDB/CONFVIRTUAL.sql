@@ -67,7 +67,7 @@ CREATE TABLE FORMAZIONE(
 	
 CREATE TABLE UTENTE(
     Username VARCHAR(100) PRIMARY KEY,
-    Password VARCHAR(100),
+    Passwordd VARCHAR(100),
     Nome VARCHAR(100),
     Cognome VARCHAR(100),
     DataNascita DATE,
@@ -231,3 +231,5 @@ INSERT INTO DISPOSIZIONE(AnnoEdizioneConferenza,AcronimoConferenza,NomeSponsor) 
 INSERT INTO DISPOSIZIONE(AnnoEdizioneConferenza,AcronimoConferenza,NomeSponsor) VALUES (2022, "SPNLP", "PlayStation");
 INSERT INTO DISPOSIZIONE(AnnoEdizioneConferenza,AcronimoConferenza,NomeSponsor) VALUES (2022, "SPNLP", "Nike");
 
+INSERT INTO UTENTE(Username, Passwordd, Nome, Cognome, DataNascita, LuogoNascita) VALUES ("Mari", "Mari", "Marianna", "Gimigliano", "2000-10-13", "Cesena");
+INSERT INTO UTENTE(Username, Passwordd, Nome, Cognome, DataNascita, LuogoNascita) VALUES ("Pietro1", 111, "Pietro", "Lelli", "2000-03-06", "Cesena");
