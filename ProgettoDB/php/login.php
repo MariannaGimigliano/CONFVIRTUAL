@@ -1,42 +1,21 @@
 <?php
-session_start();
-require_once('boostrap.php');
+    require_once('connection.php');
 
-if (isset($_SESSION['session_id'])) {
-    header('Location: dashboard.php');
-    exit;
-}
+    if(isset($_POST["username"]) && isset($_POST["password"])){
 
-if (isset($_POST['login'])) {
-    $username = $_POST['username'] ?? '';
-    $password = $_POST['password'] ?? '';
-    
-    if (empty($username) || empty($password)) {
-        $msg = 'Inserisci username e password %s';
-    } else {
-        $query = "
-            SELECT username, password
-            FROM users
-            WHERE username = :username
-        ";
-        
-        $check = $pdo->prepare($query);
-        $check->bindParam(':username', $username, PDO::PARAM_STR);
-        $check->execute();
-        
-        $user = $check->fetch(PDO::FETCH_ASSOC);
-        
-        if (!$user || password_verify($password, $user['password']) === false) {
-            $msg = 'Credenziali utente errate %s';
-        } else {
-            session_regenerate_id();
-            $_SESSION['session_id'] = session_id();
-            $_SESSION['session_user'] = $user['username'];
-            
-            header('Location: dashboard.php');
-            exit;
+        $login_result = $dbh->getUtente($_POST["username"]);
+        if(count($login_result)!=0 && $_POST["password"] == $login_result[0]["Passwordd"]){
+            //login successo -> indirizzo pagina corretta
+            $_SESSION["username"] = $_POST["username"];
+        } else{
+            //Login fallito
+            $templateParams["errorelogin"] = "Errore! Controllare username o password!";
         }
     }
     
-    printf($msg, '<a href="../login.html">torna indietro</a>');
-}
+    if(!empty($_SESSION['username'])){
+        header("location: home.php");  
+    } else{
+        require 'template/templateLogin.php';
+    }
+?>
