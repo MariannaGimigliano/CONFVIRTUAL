@@ -88,6 +88,13 @@
             $stmt->execute();
         }
 
+        public function insertValutazione($presentazione, $username, $voto, $note){
+            $query= "INSERT INTO VALUTAZIONE (CodicePresentazione, UsernameUtente, Voto, Note) VALUES (?,?,?,?)";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('isis', $presentazione, $username, $voto, $note);
+            $stmt->execute();
+        }
+
         public function updateDatiPresenter($username, $curriculum, $foto, $nomeUni, $nomeDipartimento){
             $query ="UPDATE PRESENTER SET Curriculum=? , Foto=?, NomeUni=?, NomeDipartimento=? WHERE UsernameUtente=?";
             $stmt = $this->db->prepare($query);
