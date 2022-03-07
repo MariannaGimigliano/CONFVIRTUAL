@@ -26,8 +26,7 @@
   <?php if(isset($templateParams["speaker"])): ?>
     <h1>Operazioni Disponibili Speaker:</h1>
       <h3>
-        <a class="mb-3" href="./archivio-modifica-art.php" style="color: black; text-decoration: none;" >• Inserimento Dati Personali</a>
-        <a class="mb-3" href="./archivio-inserimentoArt.php"  style="color: black; text-decoration: none;" >&emsp;• Modifica Dati Personali</a>
+        <a class="mb-3" href="./modificaDati.php" style="color: black; text-decoration: none;" >• Inserimento e Modifica Dati Personali</a>
         <a class="mb-3" href="./archivio-admin-ordini.php"  style="color: black; text-decoration: none;" >&emsp;• Inserimento Risorse Aggiuntive</a>
         <a class="mb-3" href="./archivio-Ordini.php" style="color: black; text-decoration: none;" >&emsp;• Modifica Risorse Aggiuntive</a><br>
       </h3>

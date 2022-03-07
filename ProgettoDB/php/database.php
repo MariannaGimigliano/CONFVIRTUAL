@@ -89,7 +89,7 @@
         }
 
         public function updateDatiPresenter($username, $curriculum, $foto, $nomeUni, $nomeDipartimento){
-            $query ="UPDATE PRESENTER SET Curriculum=? , Foto=?, NomeUni=?, NomeDIpartimento=? WHERE UsernameUtente=?";
+            $query ="UPDATE PRESENTER SET Curriculum=? , Foto=?, NomeUni=?, NomeDipartimento=? WHERE UsernameUtente=?";
             $stmt = $this->db->prepare($query);
             $stmt->bind_param('sssss', $curriculum, $foto, $nomeUni, $nomeDipartimento, $username);
             $stmt->execute();
@@ -98,7 +98,7 @@
             return $stmt->execute();
         }
         
-        public function updateCurriculum($username, $curriculum){
+        public function updateCurriculumPresenter($username, $curriculum){
             $query ="UPDATE PRESENTER SET Curriculum=? WHERE UsernameUtente=?";
             $stmt = $this->db->prepare($query);
             $stmt->bind_param('ss', $curriculum, $username);
@@ -108,7 +108,7 @@
             return $stmt->execute();
         }
 
-        public function updateNomeUni($username, $nomeUni){
+        public function updateNomeUniPresenter($username, $nomeUni){
             $query ="UPDATE PRESENTER SET NomeUni=? WHERE UsernameUtente=?";
             $stmt = $this->db->prepare($query);
             $stmt->bind_param('ss', $nomeUni, $username);
@@ -118,7 +118,7 @@
             return $stmt->execute();
         }
 
-        public function updateNomeDipartimento($username, $nomeDipartimento){
+        public function updateNomeDipartimentoPresenter($username, $nomeDipartimento){
             $query ="UPDATE PRESENTER SET NomeDipartimento=? WHERE UsernameUtente=?";
             $stmt = $this->db->prepare($query);
             $stmt->bind_param('ss', $nomeDipartimento, $username);
@@ -128,8 +128,58 @@
             return $stmt->execute();
         }
 
-        public function updateFoto($username, $foto){
+        public function updateFotoPresenter($username, $foto){
             $query ="UPDATE PRESENTER SET Foto=? WHERE UsernameUtente=?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('ss', $foto, $username);
+            $stmt->execute();
+            $result = $stmt->get_result();
+    
+            return $stmt->execute();
+        }
+
+        public function updateDatiSpeaker($username, $curriculum, $foto, $nomeUni, $nomeDipartimento){
+            $query ="UPDATE SPEAKER SET Curriculum=? , Foto=?, NomeUni=?, NomeDipartimento=? WHERE UsernameUtente=?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('sssss', $curriculum, $foto, $nomeUni, $nomeDipartimento, $username);
+            $stmt->execute();
+            $result = $stmt->get_result();
+        
+            return $stmt->execute();
+        }
+        
+        public function updateCurriculumSpeaker($username, $curriculum){
+            $query ="UPDATE SPEAKER SET Curriculum=? WHERE UsernameUtente=?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('ss', $curriculum, $username);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            return $stmt->execute();
+        }
+
+        public function updateNomeUniSpeaker($username, $nomeUni){
+            $query ="UPDATE SPEAKER SET NomeUni=? WHERE UsernameUtente=?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('ss', $nomeUni, $username);
+            $stmt->execute();
+            $result = $stmt->get_result();
+    
+            return $stmt->execute();
+        }
+
+        public function updateNomeDipartimentoSpeaker($username, $nomeDipartimento){
+            $query ="UPDATE SPEAKER SET NomeDipartimento=? WHERE UsernameUtente=?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('ss', $nomeDipartimento, $username);
+            $stmt->execute();
+            $result = $stmt->get_result();
+    
+            return $stmt->execute();
+        }
+
+        public function updateFotoSpeaker($username, $foto){
+            $query ="UPDATE SPEAKER SET Foto=? WHERE UsernameUtente=?";
             $stmt = $this->db->prepare($query);
             $stmt->bind_param('ss', $foto, $username);
             $stmt->execute();
