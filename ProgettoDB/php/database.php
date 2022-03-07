@@ -51,11 +51,91 @@
             return $result->fetch_all(MYSQLI_ASSOC);
         }
 
+        public function getSpeaker($username){
+            $query = "SELECT * FROM SPEAKER WHERE UsernameUtente = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('s',$username);
+            $stmt->execute();
+            $result = $stmt->get_result();
+    
+            return $result->fetch_all(MYSQLI_ASSOC);
+        }
+
+        public function getPresenter($username){
+            $query = "SELECT * FROM PRESENTER WHERE UsernameUtente = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('s',$username);
+            $stmt->execute();
+            $result = $stmt->get_result();
+    
+            return $result->fetch_all(MYSQLI_ASSOC);
+        }
+
+        public function getAmministratore($username){
+            $query = "SELECT * FROM AMMINISTRATORE WHERE UsernameUtente = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('s',$username);
+            $stmt->execute();
+            $result = $stmt->get_result();
+    
+            return $result->fetch_all(MYSQLI_ASSOC);
+        }
+
         public function insertUser($username, $password, $nome, $cognome, $datanascita, $luogonascita){
             $query= "INSERT INTO UTENTE(Username, Passwordd, Nome, Cognome, DataNascita, LuogoNascita) VALUES (?,?,?,?,?,?)";
             $stmt = $this->db->prepare($query);
             $stmt->bind_param('ssssss', $username, $password, $nome, $cognome, $datanascita, $luogonascita);
             $stmt->execute();
+        }
+
+        public function updateDatiPresenter($username, $curriculum, $foto, $nomeUni, $nomeDipartimento){
+            $query ="UPDATE PRESENTER SET Curriculum=? , Foto=?, NomeUni=?, NomeDIpartimento=? WHERE UsernameUtente=?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('sssss', $curriculum, $foto, $nomeUni, $nomeDipartimento, $username);
+            $stmt->execute();
+            $result = $stmt->get_result();
+        
+            return $stmt->execute();
+        }
+        
+        public function updateCurriculum($username, $curriculum){
+            $query ="UPDATE PRESENTER SET Curriculum=? WHERE UsernameUtente=?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('ss', $curriculum, $username);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            return $stmt->execute();
+        }
+
+        public function updateNomeUni($username, $nomeUni){
+            $query ="UPDATE PRESENTER SET NomeUni=? WHERE UsernameUtente=?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('ss', $nomeUni, $username);
+            $stmt->execute();
+            $result = $stmt->get_result();
+    
+            return $stmt->execute();
+        }
+
+        public function updateNomeDipartimento($username, $nomeDipartimento){
+            $query ="UPDATE PRESENTER SET NomeDipartimento=? WHERE UsernameUtente=?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('ss', $nomeDipartimento, $username);
+            $stmt->execute();
+            $result = $stmt->get_result();
+    
+            return $stmt->execute();
+        }
+
+        public function updateFoto($username, $foto){
+            $query ="UPDATE PRESENTER SET Foto=? WHERE UsernameUtente=?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('ss', $foto, $username);
+            $stmt->execute();
+            $result = $stmt->get_result();
+    
+            return $stmt->execute();
         }
 
         public function getConferenze(){
