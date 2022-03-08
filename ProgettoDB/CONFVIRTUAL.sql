@@ -6,15 +6,16 @@ CREATE TABLE CONFERENZA(
 	AnnoEdizione INT DEFAULT 2000,
     Acronimo VARCHAR(20),
     Nome VARCHAR(100),
-    Logo CHAR,
-    Svolgimento ENUM("Attiva", "Completata"),
+    Logo VARCHAR(100),
+    Svolgimento ENUM("Attiva", "Completata") DEFAULT "Attiva",
     TotaleSponsorizzazioni INT DEFAULT 0,
     PRIMARY KEY(AnnoEdizione,Acronimo)
+    #collegare totaleSponsorizzazioni al numero di sposor collegati
 ) ENGINE=INNODB;
 
 CREATE TABLE SPONSOR(
 	Nome VARCHAR(100) PRIMARY KEY,
-	Logo Char,
+	Logo VARCHAR(100),
 	Importo DOUBLE
 ) ENGINE=INNODB;
     
@@ -38,23 +39,26 @@ CREATE TABLE GIORNATA(
 CREATE TABLE SESSIONE(
     Codice INT PRIMARY KEY,
     Titolo VARCHAR(100),
-    NumeroPresentazioni INT DEFAULT 0,  #da collegare
-    Inizio TIME, #check(Inizio>Fine),
-    Fine TIME, #check(Fine<Inizio),
+    NumeroPresentazioni INT DEFAULT 0, 
+    Inizio TIME,
+    Fine TIME,
     Link VARCHAR(100),
     GiornoGiornata DATE,
     AnnoEdizioneConferenza INT,
     AcronimoConferenza VARCHAR(20),
 	FOREIGN KEY(AnnoEdizioneConferenza, AcronimoConferenza) REFERENCES CONFERENZA(AnnoEdizione, Acronimo) ON DELETE CASCADE,
     FOREIGN KEY(GiornoGiornata) REFERENCES GIORNATA(Giorno) ON DELETE CASCADE
+    #collegare NumeroPresentazioni al numero di presentazioni collegate
 ) ENGINE=INNODB;
     
 CREATE TABLE PRESENTAZIONE(
     Codice INT PRIMARY KEY,
-    Inizio TIME,#check(Inizio <(SELECT Fine FROM SESSIONE) AND Inizio >(SELECT INIZIO FROM SESSIONE)),
-    Fine TIME, #check(Fine <(SELECT Fine FROM SESSIONE) AND Fine >(SELECT INIZIO FROM SESSIONE)),
-    NumeroSequenza INT #all'interno della sessione
-    #non si possono avere prestazioni che eccedano l'orario di inizio/fine della sessione
+    Inizio TIME,
+    Fine TIME,
+    NumeroSequenza INT 
+    #non si possono avere prestazioni che eccedano orario di inizio/fine della sessione
+    #PRESENTAZIONE.Inizio >= SESSIONE.Inizio 
+    #PRESENTAZIONE.Fine <= SESSIONE.Fine 
 ) ENGINE=INNODB;
 
 CREATE TABLE FORMAZIONE(
@@ -78,7 +82,7 @@ CREATE TABLE ARTICOLO(
 	CodicePresentazione INT PRIMARY KEY,
 	Titolo VARCHAR(100),
     NumeroPagine INT,
-    StatoSvolgimento ENUM("Coperto", "Non coperto"),
+    StatoSvolgimento ENUM("Coperto", "Non coperto") DEFAULT "Non coperto",
     UsernameUtente VARCHAR(100),
 	FOREIGN KEY(CodicePresentazione) REFERENCES PRESENTAZIONE(Codice) ON DELETE CASCADE,
     FOREIGN KEY(UsernameUtente) REFERENCES UTENTE(Username) ON DELETE CASCADE
@@ -103,8 +107,6 @@ CREATE TABLE TUTORIAL(
 	CodicePresentazione INT PRIMARY KEY,
     Titolo VARCHAR(100),
     Abstract VARCHAR(500),
-	LinkRisorsa VARCHAR(100) DEFAULT NULL,
-    DescrizioneRisorsa VARCHAR(100) DEFAULT NULL,
     FOREIGN KEY(CodicePresentazione) REFERENCES PRESENTAZIONE(Codice) ON DELETE CASCADE
 ) ENGINE=INNODB;
 
@@ -120,7 +122,7 @@ CREATE TABLE ISCRIZIONE(
 CREATE TABLE SPEAKER(
 	UsernameUtente VARCHAR(100) PRIMARY KEY,
 	Curriculum VARCHAR(30),
-    Foto LONGBLOB,
+    Foto VARCHAR(100),
     NomeUni VARCHAR(100),
 	NomeDipartimento VARCHAR(100),
     FOREIGN KEY(UsernameUtente) REFERENCES UTENTE(Username) ON DELETE CASCADE
@@ -134,18 +136,30 @@ CREATE TABLE DIMOSTRAZIONE(
     FOREIGN KEY(UsernameUtente) REFERENCES UTENTE(Username) ON DELETE CASCADE
 ) ENGINE=INNODB;
 
+CREATE TABLE RISORSA(
+	UsernameUtente VARCHAR(100),
+	CodicePresentazione INT,
+	LinkRisorsa VARCHAR(100),
+    DescrizioneRisorsa VARCHAR(100),
+    PRIMARY KEY(UsernameUtente,CodicePresentazione),
+    FOREIGN KEY(CodicePresentazione) REFERENCES PRESENTAZIONE(Codice) ON DELETE CASCADE,
+    FOREIGN KEY(UsernameUtente) REFERENCES UTENTE(Username) ON DELETE CASCADE
+) ENGINE=INNODB;
+
 CREATE TABLE PRESENTER(
 	UsernameUtente VARCHAR(100) PRIMARY KEY,
 	Curriculum VARCHAR(30),
-    Foto LONGBLOB,
+    Foto VARCHAR(100),
     NomeUni VARCHAR(100),
 	NomeDipartimento VARCHAR(100),
     FOREIGN KEY(UsernameUtente) REFERENCES UTENTE(Username) ON DELETE CASCADE
+    #Un presenter deve essere necessariamente uno degli autori dell’articolo
 ) ENGINE=INNODB;
 
 CREATE TABLE AMMINISTRATORE(
 	UsernameUtente VARCHAR(100) PRIMARY KEY,
     FOREIGN KEY(UsernameUtente) REFERENCES UTENTE(Username) ON DELETE CASCADE
+    #All’atto della creazione di una nuova conferenza, l’amministratore è anche automaticamente registrato alla stessa
 ) ENGINE=INNODB;
 
 CREATE TABLE VALUTAZIONE(
@@ -175,8 +189,8 @@ CREATE TABLE MESSAGGIO(
     PRIMARY KEY(CodiceSessione,UsernameUtente,DataMessaggio,TestoMessaggio),
     FOREIGN KEY(CodiceSessione) REFERENCES SESSIONE(Codice) ON DELETE CASCADE,
     FOREIGN KEY(UsernameUtente) REFERENCES UTENTE(Username) ON DELETE CASCADE
-    #La chat consente l’inserimento di messaggi solo nell’orario
-	#di inizio della sessione, e si disattiva immediatamente dopo l’orario di fine della stessa.
+    #La chat consente l’inserimento di messaggi solo nell’orario di inizio della sessione, 
+    #e si disattiva immediatamente dopo l’orario di fine della stessa.
 ) ENGINE=INNODB;
     
 CREATE TABLE LISTA(
@@ -232,7 +246,13 @@ INSERT INTO DISPOSIZIONE(AnnoEdizioneConferenza,AcronimoConferenza,NomeSponsor) 
 INSERT INTO DISPOSIZIONE(AnnoEdizioneConferenza,AcronimoConferenza,NomeSponsor) VALUES (2022, "SPNLP", "Nike");
 
 INSERT INTO UTENTE(Username, Passwordd, Nome, Cognome, DataNascita, LuogoNascita) VALUES ("Mari", "Mari", "Marianna", "Gimigliano", "2000-10-13", "Cesena");
-INSERT INTO UTENTE(Username, Passwordd, Nome, Cognome, DataNascita, LuogoNascita) VALUES ("Pietro1", 111, "Pietro", "Lelli", "2000-03-06", "Cesena");
+INSERT INTO UTENTE(Username, Passwordd, Nome, Cognome, DataNascita, LuogoNascita) VALUES ("PietroL", 111, "Pietro", "Lelli", "2000-03-06", "Cesena");
+INSERT INTO UTENTE(Username, Passwordd, Nome, Cognome, DataNascita, LuogoNascita) VALUES ("Francesco1", "ciao", "Francesco", "Montanari", "2000-03-22", "Bologna");
+INSERT INTO UTENTE(Username, Passwordd, Nome, Cognome, DataNascita, LuogoNascita) VALUES ("giacomo00", 1234, "Giacomo", "Fantato", "2000-01-12", "Bologna");
+
+INSERT INTO SPEAKER(UsernameUtente, Curriculum, Foto, NomeUni, NomeDipartimento) VALUES ("PietroL", null, null, null, null);
+INSERT INTO PRESENTER(UsernameUtente, Curriculum, Foto, NomeUni, NomeDipartimento) VALUES ("Francesco1", null, null, null, null);
+INSERT INTO AMMINISTRATORE(UsernameUtente) VALUES ("Mari");
 
 INSERT INTO SESSIONE(Codice,Titolo,NumeroPresentazioni,Inizio,Fine,Link,GiornoGiornata,AnnoEdizioneConferenza,AcronimoConferenza) 
 VALUES (100151,"Mattina 15/03 ICSI", 1,"9:00:00","12:00:00","www.ICSI_mattina1.it","2022-03-15",2022, "ICSI");
