@@ -98,7 +98,7 @@
         public function insertConferenza($anno, $acronimo, $nome, $logo){
             $query= "INSERT INTO CONFERENZA (AnnoEdizione, Acronimo, Nome, Logo) VALUES (?,?,?,?)";
             $stmt = $this->db->prepare($query);
-            $stmt->bind_param('issss', $anno, $acronimo, $nome, $logo);
+            $stmt->bind_param('isss', $anno, $acronimo, $nome, $logo);
             $stmt->execute();
         }
 
@@ -210,8 +210,11 @@
         }
 
         public function getConferenze(){
-            $query = "SELECT DISTINCT Nome, Acronimo, AnnoEdizione, Logo FROM conferenze_disponibili";
+            $query = "SELECT DISTINCT Nome, Acronimo, AnnoEdizione, Logo FROM CONFERENZA WHERE Svolgimento=?";
             $stmt = $this->db->prepare($query);
+            $attiva = "Attiva";
+            $stmt->bind_param('s',$attiva);
+
             $stmt->execute();
             $result = $stmt->get_result();
     

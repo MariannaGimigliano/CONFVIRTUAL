@@ -18,10 +18,8 @@
     </head>
     <body>
         <ul>
-            <li style="float:right"><a href="../html/paginaIniziale.html"><i class="fa fa-home"></i></a></li>
-            <li><a href="../html/Login.html">Login</a></li>
-            <li><a class="active" href="../html/register.html">Registrazione</a></li>
-          </ul>
+          <li><a href="../php/logout.php">Logout</a></li>
+        </ul>
         
           <div class="row">
         

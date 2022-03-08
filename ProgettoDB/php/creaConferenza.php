@@ -5,7 +5,7 @@
     $templateParams["giornate"] = null;
 
     if (isset($_POST['btnCreaConferenza'])) {
-        if(empty($_POST['anno']) || empty($_POST['acronimo']) || empty($_POST['nome']) || empty($_POST['logo']) || empty($_POST['svolgimento'])){
+        if(empty($_POST['anno']) || empty($_POST['acronimo']) || empty($_POST['nome']) || empty($_POST['logo'])){
             $templateParams["errore"] = "Errore! Non sono stati inseriti alcuni dati";
         } else {
     
@@ -15,6 +15,7 @@
             $logo = $_POST['logo'];
         
             $dbh->insertConferenza($anno, $acronimo, $nome, $logo);
+            $templateParams['conferenze'] = $dbh->getConferenze();
         }     
     }
 
