@@ -95,6 +95,20 @@
             $stmt->execute();
         }
 
+        public function insertConferenza($anno, $acronimo, $nome, $logo){
+            $query= "INSERT INTO CONFERENZA (AnnoEdizione, Acronimo, Nome, Logo) VALUES (?,?,?,?)";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('issss', $anno, $acronimo, $nome, $logo);
+            $stmt->execute();
+        }
+
+        public function insertDataConferenza($acronimo, $anno, $data){
+            $query= "INSERT INTO GIORNATA (AnnoEdizioneConferenza, AcronimoConferenza, Giorno) VALUES (?,?,?)";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('iss', $anno, $acronimo, $data);
+            $stmt->execute();
+        }
+
         public function updateDatiPresenter($username, $curriculum, $foto, $nomeUni, $nomeDipartimento){
             $query ="UPDATE PRESENTER SET Curriculum=? , Foto=?, NomeUni=?, NomeDipartimento=? WHERE UsernameUtente=?";
             $stmt = $this->db->prepare($query);
@@ -205,7 +219,7 @@
         }
 
         public function getConferenzaByNome($nome){
-            $query = "SELECT AnnoEdizione, Acronimo FROM CONFERENZA WHERE Nome=?";
+            $query = "SELECT AnnoEdizione, Acronimo, Nome FROM CONFERENZA WHERE Nome=?";
             $stmt = $this->db->prepare($query);
             $stmt->bind_param('s',$nome);
             $stmt->execute();
@@ -245,6 +259,16 @@
             $query = "SELECT * FROM SESSIONE, FORMAZIONE, PRESENTAZIONE WHERE SESSIONE.Codice=CodiceSessione AND PRESENTAZIONE.Codice=CodicePresentazione AND CodiceSessione=?";
             $stmt = $this->db->prepare($query);
             $stmt->bind_param('i',$codiceSessione);
+            $stmt->execute();
+            $result = $stmt->get_result();
+    
+            return $result->fetch_all(MYSQLI_ASSOC);
+        }
+
+        public function getGiornate($conferenza){
+            $query = "SELECT Giorno FROM GIORNATA WHERE AcronimoConferenza=?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param('s',$conferenza);
             $stmt->execute();
             $result = $stmt->get_result();
     

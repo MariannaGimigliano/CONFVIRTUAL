@@ -7,7 +7,7 @@ CREATE TABLE CONFERENZA(
     Acronimo VARCHAR(20),
     Nome VARCHAR(100),
     Logo CHAR,
-    Svolgimento ENUM("Attiva", "Completata"),
+    Svolgimento ENUM("Attiva", "Completata") DEFAULT "Attiva",
     TotaleSponsorizzazioni INT DEFAULT 0,
     PRIMARY KEY(AnnoEdizione,Acronimo)
 ) ENGINE=INNODB;

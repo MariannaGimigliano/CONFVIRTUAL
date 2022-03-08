@@ -33,7 +33,7 @@
   <?php elseif(isset($templateParams["amministratore"])): ?>
     <h1>Operazioni Disponibili Amministratore:</h1>
       <h3>
-        <a class="mb-3" href="./archivio-modifica-art.php" style="color: black; text-decoration: none;" >• Creazione Nuova Conferenza</a>
+        <a class="mb-3" href="./creaConferenza.php" style="color: black; text-decoration: none;" >• Creazione Nuova Conferenza</a>
         <a class="mb-3" href="./archivio-inserimentoArt.php"  style="color: black; text-decoration: none;" >&emsp;• Creazione Nuova Sessione</a>
         <a class="mb-3" href="./archivio-admin-ordini.php"  style="color: black; text-decoration: none;" >&emsp;• Inserimento Presentazione</a>
         <a class="mb-3" href="./archivio-Ordini.php" style="color: black; text-decoration: none;" >&emsp;• Associazione Speaker-Presentazione Tutorial</a>
