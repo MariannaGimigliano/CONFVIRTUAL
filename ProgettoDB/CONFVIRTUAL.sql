@@ -6,7 +6,11 @@ CREATE TABLE CONFERENZA(
 	AnnoEdizione INT DEFAULT 2000,
     Acronimo VARCHAR(20),
     Nome VARCHAR(100),
+<<<<<<< HEAD
     Logo VARCHAR(100),
+=======
+    Logo CHAR,
+>>>>>>> 8ea7618170b57a5b607a60bffd5c0e370438ed52
     Svolgimento ENUM("Attiva", "Completata") DEFAULT "Attiva",
     TotaleSponsorizzazioni INT DEFAULT 0,
     PRIMARY KEY(AnnoEdizione,Acronimo)
