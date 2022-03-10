@@ -24,6 +24,16 @@
 
     </ul>
 
+    <?php if (isset($templateParams['msg'])): ?>
+              <div class="alert alert-info" role="alert">
+                <div class="row">
+                  <div class="col-8 col-md-6">
+                    <h4><?php echo ($templateParams['msg'])?></h4>
+                  </div> 
+                </div>
+              </div>
+    <?php endif; ?>
+
     <button type="button" class="btn btn-outline-secondary"><a class="text-reset" href="registrazioneConf.php?nome=<?php echo $nomeConf?>">Registrati alla conferenza</a></button>
     <h1>Sessioni giornaliere della conferenza:</h1>
     <?php foreach($templateParams['sessione'] as $sessione): ?>

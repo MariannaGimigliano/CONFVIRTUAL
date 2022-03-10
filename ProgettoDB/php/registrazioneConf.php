@@ -10,6 +10,8 @@
 
     //per iscriversi ad una conferenza
     $dbh->insertIscrizione($annoEdizione, $acronimo, $username);
+    $templateParams["msg"] = "Registrazione alla Conferenza avventura con successo!";
+
 
     require 'conferenza.php';
 ?>
