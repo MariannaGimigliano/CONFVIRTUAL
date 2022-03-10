@@ -7,7 +7,7 @@
         $presentazione = $_GET["presentazione"];
 
         $dbh->insertValutazione($presentazione, $username, $voto, $note);
-
+        $templsteParams["msgValutazione"] = "Valitazione Inserita con successo!"
         $nomeConf = $_GET["nome"];
 
     

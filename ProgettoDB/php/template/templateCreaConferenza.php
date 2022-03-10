@@ -25,6 +25,24 @@
         
         <div class="col-md-1"></div>
         <div class="col-md-10">
+          <?php if (isset($templateParams['msgConferenza'])): ?>
+              <div class="alert alert-info" role="alert">
+                <div class="row">
+                  <div class="col-8 col-md-6">
+                    <h4><?php echo ($templateParams['msg'])?></h4>
+                  </div> 
+                </div>
+              </div>
+            <?php endif; ?>
+            <?php if (isset($templateParams['erroreConferenza'])): ?>
+              <div class="alert alert-danger" role="alert">
+                <div class="row">
+                  <div class="col-8 col-md-6">
+                    <h4><?php echo ($templateParams['msg'])?></h4>
+                  </div> 
+                </div>
+              </div>
+            <?php endif; ?>
           <h1><br>Creazione Nuova Conferenza</h1><br>
           
           <h4 class="mb-3">
@@ -67,6 +85,24 @@
         
         <div class="col-md-1"></div>
         <div class="col-md-10">
+        <?php if (isset($templateParams['msgDataConferenza'])): ?>
+              <div class="alert alert-info" role="alert">
+                <div class="row">
+                  <div class="col-8 col-md-6">
+                    <h4><?php echo ($templateParams['msg'])?></h4>
+                  </div> 
+                </div>
+              </div>
+            <?php endif; ?>
+            <?php if (isset($templateParams['erroreDataConferenza'])): ?>
+              <div class="alert alert-danger" role="alert">
+                <div class="row">
+                  <div class="col-8 col-md-6">
+                    <h4><?php echo ($templateParams['msg'])?></h4>
+                  </div> 
+                </div>
+              </div>
+            <?php endif; ?>
           <h1><br>Aggiungi Giornata a Conferenza</h1><br>
           
           <h4 class="mb-3">
@@ -102,6 +138,24 @@
         
         <div class="col-md-1"></div>
         <div class="col-md-10">
+        <?php if (isset($templateParams['msgSessione'])): ?>
+              <div class="alert alert-info" role="alert">
+                <div class="row">
+                  <div class="col-8 col-md-6">
+                    <h4><?php echo ($templateParams['msg'])?></h4>
+                  </div> 
+                </div>
+              </div>
+            <?php endif; ?>
+            <?php if (isset($templateParams['erroreSessione'])): ?>
+              <div class="alert alert-danger" role="alert">
+                <div class="row">
+                  <div class="col-8 col-md-6">
+                    <h4><?php echo ($templateParams['msg'])?></h4>
+                  </div> 
+                </div>
+              </div>
+            <?php endif; ?>
           <h1><br>Creazione Nuova Sessione</h1><br>
           <h4 class="mb-3">
             <form action="./creaConferenza.php" method="post" class="row g-3">

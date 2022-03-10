@@ -24,6 +24,16 @@
 
     </ul>
 
+    <?php if (isset($templateParams['msgValutazione'])): ?>
+              <div class="alert alert-info" role="alert">
+                <div class="row">
+                  <div class="col-8 col-md-6">
+                    <h4><?php echo ($templateParams['msg'])?></h4>
+                  </div> 
+                </div>
+              </div>
+    <?php endif; ?>
+
     <?php if (isset($templateParams['msg'])): ?>
               <div class="alert alert-info" role="alert">
                 <div class="row">

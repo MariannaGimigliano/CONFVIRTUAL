@@ -37,7 +37,7 @@
         <a class="mb-3" href="./insertPresentazione.php"  style="color: black; text-decoration: none;" >&emsp;• Inserimento Presentazione</a><br>
         <a class="mb-3" href="./associazioni.php" style="color: black; text-decoration: none;" >&emsp;• Associazioni Utenti-Presentazioni</a><br>
         <a class="mb-3" href="./visualizzaValutazioni.php" style="color: black; text-decoration: none;" >&emsp;• Visualizzazione Valutazioni Presentazione</a><br>
-        <a class="mb-3" href="./creaSponsor.php" style="color: black; text-decoration: none;" >&emsp;• Creazione Sponsor</a><br>
+        <a class="mb-3" href="./creaSponsor.php" style="color: black; text-decoration: none;" >&emsp;• Creazione e Associazione Sponsor</a><br>
         <br>
       </h3>
 
