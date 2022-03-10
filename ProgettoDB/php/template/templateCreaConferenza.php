@@ -25,7 +25,7 @@
         
         <div class="col-md-1"></div>
         <div class="col-md-10">
-          <h1><br><br>Creazione Nuova Conferenza</h1><br>
+          <h1><br>Creazione Nuova Conferenza</h1><br>
           
           <h4 class="mb-3">
             <form action="./creaConferenza.php" method="post" class="row g-3">
@@ -57,19 +57,22 @@
                                 
               </div>
             </form>
-        </div>
+
+          </div>
+
+          <br><br>
+        <hr>  
 
         <div class="row">
         
         <div class="col-md-1"></div>
         <div class="col-md-10">
-          <h1><br><br>Aggiungi Giornata a Conferenza</h1><br>
+          <h1><br>Aggiungi Giornata a Conferenza</h1><br>
           
           <h4 class="mb-3">
             <form action="./creaConferenza.php" method="post" class="row g-3">
             <div class="col-md-6">
                   <label for="inputPassword4" class="form-label">Conferenza:</label>
-                  <!--<input type="text" class="form-control" id="corrente" name="corrente">-->
                   <select class="form-select" name="conferenza" >
                     <option value=""></option>
                     <?php foreach($templateParams['conferenze'] as $conferenza): ?>
@@ -88,13 +91,18 @@
               </div>
                                 
               </div>
+
             </form>
-            
+            </div>
+
+            <br><br>
+            <hr>  
+
         <div class="row">
         
         <div class="col-md-1"></div>
         <div class="col-md-10">
-          <h1><br><br>Creazione Nuova Sessione</h1><br>
+          <h1><br>Creazione Nuova Sessione</h1><br>
           <h4 class="mb-3">
             <form action="./creaConferenza.php" method="post" class="row g-3">
             <div class="col-md-6">
@@ -113,16 +121,22 @@
                 </div>
                 <br>
                 </div>
-                <?php if(isset($templateParams["conferenza"])):?>
-                <h4>Conferenza: <?php echo $templateParams["conferenza"][0]["Nome"]?></h4><br><br><br>
-                <?php endif;?>
+                
               
             </form>
             <form action="./creaConferenza.php" method="post" class="row g-3">
+            
+            <?php if(isset($templateParams["conferenza"])):?>
+              <div class="col-md-12">
+              <label for="inputEmail4" class="form-label">Conferenza Selezionata:</label>
+                <input type="text" class="form-control" id="conferenza2" name="conferenza2" readonly value="<?php echo $templateParams["conferenza"][0]["Nome"]?>">
+                </div>
+                <?php endif;?>
+            
                 <div class="col-md-6">
                   <label for="inputPassword4" class="form-label">Giornata:</label>
                   <!--<input type="text" class="form-control" id="corrente" name="corrente">-->
-                  <select class="form-select" name="giornata" >
+                  <select class="form-select" name="giornate" >
                     <option value=""></option>
                     <?php foreach($templateParams['giornate'] as $giornata): ?>
                     <option value="<?php echo $giornata['Giorno']; ?>"><?php echo $giornata['Giorno']; ?></option>
@@ -147,7 +161,7 @@
               </div>  
 
               <div class="col-md-6">    
-                  <label for="formFile" class="form-label">Orario Fine</label>
+                  <label for="formFile" class="form-label">Orario Fine:</label>
                   <input class="form-control" type="time" id="fine" name="fine">
                 </div>        
                 
@@ -163,6 +177,7 @@
                                 
               </div>
             </form>
+            </div>
         </div>
     </body>
 </html>

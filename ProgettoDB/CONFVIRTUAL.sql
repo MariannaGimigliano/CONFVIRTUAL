@@ -121,10 +121,10 @@ CREATE TABLE ISCRIZIONE(
 
 CREATE TABLE SPEAKER(
 	UsernameUtente VARCHAR(100) PRIMARY KEY,
-	Curriculum VARCHAR(30),
-    Foto VARCHAR(100),
-    NomeUni VARCHAR(100),
-	NomeDipartimento VARCHAR(100),
+	Curriculum VARCHAR(30) DEFAULT NULL,
+    Foto VARCHAR(100) DEFAULT NULL,
+    NomeUni VARCHAR(100) DEFAULT NULL,
+	NomeDipartimento VARCHAR(100) DEFAULT NULL,
     FOREIGN KEY(UsernameUtente) REFERENCES UTENTE(Username) ON DELETE CASCADE
 ) ENGINE=INNODB;
 
@@ -148,10 +148,10 @@ CREATE TABLE RISORSA(
 
 CREATE TABLE PRESENTER(
 	UsernameUtente VARCHAR(100) PRIMARY KEY,
-	Curriculum VARCHAR(30),
-    Foto VARCHAR(100),
-    NomeUni VARCHAR(100),
-	NomeDipartimento VARCHAR(100),
+	Curriculum VARCHAR(30) DEFAULT NULL,
+    Foto VARCHAR(100) DEFAULT NULL,
+    NomeUni VARCHAR(100) DEFAULT NULL,
+	NomeDipartimento VARCHAR(100) DEFAULT NULL,
     FOREIGN KEY(UsernameUtente) REFERENCES UTENTE(Username) ON DELETE CASCADE
     #Un presenter deve essere necessariamente uno degli autori dell’articolo
 ) ENGINE=INNODB;
@@ -364,6 +364,24 @@ INSERT INTO CREAZIONE(AnnoEdizioneConferenza, AcronimoConferenza, UsernameUtente
 INSERT INTO CREAZIONE(AnnoEdizioneConferenza, AcronimoConferenza, UsernameUtente) VALUES (2022, "WIT", "Mari");
 INSERT INTO CREAZIONE(AnnoEdizioneConferenza, AcronimoConferenza, UsernameUtente) VALUES (2022, "SPNLP", "Mari");
 
+
+
+/*Operazioni che riguardano tutti gli utenti*/
+
+
+DELIMITER $
+CREATE PROCEDURE REGISTRAZIONE_CONFERENZA(IN AnnoEdizioneConferenzaI INT, IN AcronimoConferenzaI VARCHAR(20), IN UsernameUtenteI VARCHAR(100))
+BEGIN
+	DECLARE AnnoEdizioneConferenzaX INT DEFAULT YEAR(NOW());
+    DECLARE UsernameUtenteX VARCHAR(100);
+	SET AnnoEdizioneConferenzaX =(SELECT AnnoEdizione FROM CONFERENZA WHERE( AnnoEdizione=AnnoEdizioneConferenzaI AND Acronimo=AcronimoConferenzaI
+		AND Svolgimento =! "Completato"));
+    SET UsernameUtenteX =(SELECT Username FROM UTENTE WHERE(Username=UsernameUtenteI));
+	IF(AnnoEdizioneX=1 AND UsernameUtenteX=1) THEN
+		INSERT INTO ISCRIZIONE(AnnoEdizioneConferenza,AcronimoConferenza,UsernameUtente) VALUES (AnnoEdizioneConferenzaI,AcronimoConferenzaI,UsernameUtenteI);
+    END IF;
+END $
+DELIMITER ;
 
 
 

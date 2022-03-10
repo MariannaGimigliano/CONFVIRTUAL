@@ -10,6 +10,8 @@
 <!-- icone-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<link rel="stylesheet" href="../css/styleHome.css">
+
 <style>
 #grad1 {
   height: 500px;
@@ -62,11 +64,14 @@
             </form>
         </div>
 
+        <br><br>
+        <hr>
+
         <div class="row">
         
         <div class="col-md-1"></div>
         <div class="col-md-10">
-          <h1><br><br>Modifica Dati</h1><br>
+          <h1><br>Modifica Dati</h1><br>
           
           <h4 class="mb-3">
             <form action="./DatiPresenter.php" method="post" class="row g-3">

@@ -11,6 +11,11 @@
 
     </head>
     <body>
+        <ul>
+            <li style="float:right"><a href="../php/home.php"><i class="fa fa-home"></i></a></li>
+            <li><a href="../php/login.php">Login Utente</a></li>
+        
+          </ul>
 
         <form method="post" action="../php/register.php">
             <h1>Registrazione</h1>
@@ -18,12 +23,16 @@
             <input type="password" id="password" placeholder="Password" name="password" required>
             <input type="text" id="nome" placeholder="Nome" name="nome" required>
             <input type="text" id="cognome" placeholder="Cognome" name="cognome" required>
-            <input type="text" id="datanascita" placeholder="Data Nascita" name="datanascita" required>
+            <input type="date" id="datanascita" placeholder="Data Nascita" name="datanascita" required>
             <input type="text" id="luogonascita" placeholder="Luogo Nascita" name="luogonascita" required>
             
-            <! –checkbox accessoria (non di dominio) per i termini d'uso–> 
-            <input type="checkbox" id="termini" name="termini" value="Accept"> 
-            <label for="termini"> Accetto i termini di utilizzo </label> 
+            <label for="">Tipologia Utente:</label>
+            <select class="form-select" name="tipo" >
+                <option value="Utente Generico">Utente Generico</option>
+                <option value="Speaker">Speaker</option>
+                <option value="Presenter">Presenter</option>
+                <option value="Amministratore">Amministratore</option>
+            </select>
             <br>
             
             <button type="submit" name="register">Registrati</button>
