@@ -1,5 +1,7 @@
 <?php
     require_once 'connection.php';
+    
+    $nomeConf = $_GET["nome"];
 
     //per avere identificativi della conferenza selezionata
     $templateParams["conferenza"] = $dbh->getConferenzaByNome($_GET["nome"]);
@@ -8,10 +10,16 @@
     $acronimo = $templateParams["conferenza"][0]["Acronimo"];
     $username = $_SESSION["username"];
 
-    //per iscriversi ad una conferenza
-    $dbh->insertIscrizione($annoEdizione, $acronimo, $username);
-    $templateParams["msg"] = "Registrazione alla Conferenza avventura con successo!";
+    //iscrizione ad una conferenza
+    try{
+      $dbh->insertIscrizione($annoEdizione, $acronimo, $username);
+      $templateParams["msg"] = "Registrazione alla conferenza avvenuta con successo!";
+    } catch(Exception $err){
+      $templateParams['error'] = "Sei già iscritto a questa conferenza!";
+    }
 
-
-    require 'conferenza.php';
+    require 'paginaUtente.php';
 ?>
+
+
+  
